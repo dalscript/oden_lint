@@ -208,8 +208,9 @@ impl Handler for NoDeprecatedDenoApiHandler {
   ) {
     if_chain! {
       if let ast_view::TsEntityName::Ident(ident) = qualified_name.left;
+      if let ast_view::TsMemberName::Ident(ident2) = qualified_name.right;
       if ident.sym() == "Deno";
-      if qualified_name.right.sym() == "File";
+      if ident2.sym() == "File";
       if ctx.scope().is_global(&ident.inner.to_id());
       then {
         let deprecated_api = DeprecatedApi::File;
